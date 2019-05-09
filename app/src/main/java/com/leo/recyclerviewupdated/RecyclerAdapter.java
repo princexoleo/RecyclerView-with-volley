@@ -14,8 +14,10 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     private List<ModelClass>listModel;
 
-    public RecyclerAdapter(List<ModelClass> listModel) {
-        this.listModel = listModel;
+    private User[] data;
+
+    public RecyclerAdapter(User[] data) {
+        this.data = data;
     }
 
     @NonNull
@@ -28,9 +30,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        User user = data[position];
 
-        holder.title.setText(listModel.get(position).getTitle());
-        holder.price.setText(listModel.get(position).getPrice());
+        holder.id.setText(user.getId());
+        holder.type.setText(user.getId());
+        holder.avatar_imagae.setText(user.getAvatarUrl());
+        holder.login.setText(user.getLogin());
+
 
     }
 
@@ -40,12 +46,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView title, price;
+        TextView id, type,login,avatar_imagae;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            title =itemView.findViewById(R.id.product_title);
-            price =itemView.findViewById(R.id.product_price);
+            id =itemView.findViewById(R.id.product_title);
+            login =itemView.findViewById(R.id.product_price);
+            type =itemView.findViewById(R.id.user_type);
+            avatar_imagae =itemView.findViewById(R.id.user_image);
         }
     }
 }

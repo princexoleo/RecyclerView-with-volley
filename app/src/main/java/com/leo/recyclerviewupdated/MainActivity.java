@@ -13,12 +13,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
    private RecyclerView recyclerView;
    private RecyclerAdapter adapter;
    public static final String URL ="https://api.github.com/users";
+   private User[] users;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 //success request now ready to fetch data
                 Log.d(TAG, "onResponse: "+response);
+                GsonBuilder builder =new GsonBuilder();
+                Gson gson = builder.create();
+                users = gson.fromJson(response, User[].class);
+
 
             }
         }, new Response.ErrorListener() {
@@ -47,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        adapter = new RecyclerAdapter(PopulateData.dataToBePasess());
+        adapter = new RecyclerAdapter(users);
         recyclerView.setAdapter(adapter);
 
         int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
