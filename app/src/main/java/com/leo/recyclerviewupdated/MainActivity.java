@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,15 +33,22 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //String eequest for vollery
-        final StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
+        //String request for volley
+         StringRequest request = new StringRequest(URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //success request now ready to fetch data
+                Toast.makeText(MainActivity.this, "responses success", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onResponse: "+response);
                 GsonBuilder builder =new GsonBuilder();
                 Gson gson = builder.create();
                 users = gson.fromJson(response, User[].class);
+                adapter = new RecyclerAdapter(users,MainActivity.this);
+                recyclerView.setAdapter(adapter);
+
+                int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
+                int topPadding = getResources().getDimensionPixelSize(R.dimen.topPadding);
+                recyclerView.addItemDecoration(new RecyclerDecoration(sidePadding, topPadding));
 
 
             }
@@ -48,17 +56,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //failed request
+                Toast.makeText(MainActivity.this, "Response Failed!", Toast.LENGTH_SHORT).show();
+
 
             }
         });
 
         RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
 
-        adapter = new RecyclerAdapter(users);
-        recyclerView.setAdapter(adapter);
-
-        int sidePadding = getResources().getDimensionPixelSize(R.dimen.sidePadding);
-        int topPadding = getResources().getDimensionPixelSize(R.dimen.topPadding);
-        recyclerView.addItemDecoration(new RecyclerDecoration(sidePadding, topPadding));
     }
 }

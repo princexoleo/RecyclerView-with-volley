@@ -10,7 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/silverBackground"
+        >
 
         <ImageView
             android:id="@+id/user_image"
@@ -26,7 +28,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/product_title"
+                android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -35,7 +37,7 @@
                 android:textAppearance="?attr/textAppearanceSubtitle2" />
 
             <TextView
-                android:id="@+id/product_price"
+                android:id="@+id/user_login_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desription"
@@ -43,7 +45,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceBody2" />
             <TextView
-                android:id="@+id/user_type"
+                android:id="@+id/user_type_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Desription"
